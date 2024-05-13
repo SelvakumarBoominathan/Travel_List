@@ -75,7 +75,7 @@ input {
 }
 
 .list {
-  background-color: #b4a68f;
+  background-color: #76ABAE;
   color: #3a3832;
   padding: 4rem 0;
 
@@ -129,8 +129,12 @@ input[type="checkbox"] {
 }
 
 .stats {
-  background-color: #948979;
+  background-color: #31363F;
   text-align: center;
   font-weight: 700;
   padding: 3.2rem 0;
+}
+
+.stats span{
+    color: red;
 }

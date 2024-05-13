@@ -96,7 +96,7 @@ function PackingList() {
 function Stats() {
   return(
     <footer className='stats'>
-     <em> 📝 you have X pending tasks on your list , and you have completed X (X%) in it. </em>
+     <em> 📝 you have <span>0</span> pending tasks on your list , and you have completed <span>0</span> (<span style={{color: "yellow"}}>0%</span>) in it. </em>
     </footer>
   )
 };
