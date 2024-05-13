@@ -9,7 +9,6 @@ import { useState } from 'react'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <div className='app'>
@@ -31,24 +30,42 @@ function Logo() {
 };
 
 
+
+
+
+
+
 function Form() {
+  const [description, setDescription] = useState("");
+  const [quantity, setQuantity] = useState(1);
+
+  //to avoid reloading
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // if(!description){return}
+
+    const newItem = {description, quantity, packed : false, id : Date.now()}
+    console.log(newItem);
+
+    setDescription("");
+    setQuantity(1);
+  }
 
   const today = new Date();
   const date = today.toISOString().slice(0, 10);
 
-  const handleSubmit = () => {}
-
   return (
   
   <form className="add-form" onSubmit={handleSubmit}>
-    
+
     <h3>Listdown the tasks for today!  Date : {date}</h3>
-    <select>
+    <select value={quantity} onChange={(e)=> setQuantity(Number(e.target.value))}>
     {Array.from({length:10}, (_, index) =>(
       <option value={index + 1} key={index + 1}>{index + 1}</option>
     ))}
     </select>
-    <input type="text" placeholder= "Tasks here..."></input>
+    <input type="text" placeholder= "Tasks here..." value={description} onChange={(e)=>{setDescription(e.target.value)}} required></input>
     <button>Add</button>
     
 
@@ -62,7 +79,7 @@ function PackingList() {
     <div className="list">
     <ul style={{overflow:'hidden'}}>
       {initialItems.map((item)=>(
-        <li key={item.id}>
+        <li key={item.description}>
           <span style={!item.packed? null: { textDecoration: 'line-through'}}>
           {item.quantity} {item.description}
           </span>
