@@ -59,7 +59,7 @@ function Form() {
   
   <form className="add-form" onSubmit={handleSubmit}>
 
-    <h3>Listdown the tasks for today!  Date : {date}</h3>
+    <h3>Listdown the tasks for today <span style={{color : "#FF9F66"}}>{date}</span>!</h3>
     <select value={quantity} onChange={(e)=> setQuantity(Number(e.target.value))}>
     {Array.from({length:10}, (_, index) =>(
       <option value={index + 1} key={index + 1}>{index + 1}</option>
