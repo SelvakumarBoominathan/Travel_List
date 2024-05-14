@@ -20,7 +20,7 @@ function App() {
     <div className='app'>
     <Logo/>
     <Form  handleAddItems = {handleAddItems}/>
-    <PackingList  items={items}/>
+    <TaskList  items={items}/>
     <Stats/>
       
     </div>
@@ -88,7 +88,7 @@ function Form( {handleAddItems} ) {
 
 
 
-function PackingList( {items} ) {
+function TaskList( {items} ) {
   return(
     <div className="list">
     <ul style={{overflow:'hidden'}}>
