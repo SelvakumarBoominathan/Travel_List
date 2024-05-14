@@ -1,10 +1,3 @@
-const initialItems = [
-  { id: 1, description: "Passports", quantity: 2, packed: false },
-  { id: 2, description: "Socks", quantity: 12, packed: true },
-  { id: 2, description: "Charger", quantity: 12, packed: false }
-];
-
-
 import { useState } from 'react'
 import './App.css'
 
@@ -16,11 +9,17 @@ function App() {
       setItems((items) => [...items, item])
   }
 
+
+  //Delete from LIST
+  function handleDelete(id){
+    setItems( items => items.filter(item =>item.id !== id))
+  }
+
   return (
     <div className='app'>
     <Logo/>
     <Form  handleAddItems = {handleAddItems}/>
-    <TaskList  items={items}/>
+    <TaskList  items={items}  handleDelete={handleDelete}/>
     <Stats/>
       
     </div>
@@ -39,15 +38,13 @@ function Logo() {
 
 
 
-
+//FORM component
 
 function Form( {handleAddItems} ) {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
 
  
-
-  
   const handleSubmit = (e) => {
     //to avoid reloading
     e.preventDefault();
@@ -88,7 +85,10 @@ function Form( {handleAddItems} ) {
 
 
 
-function TaskList( {items} ) {
+
+//TaskList component
+
+function TaskList( {items, handleDelete} ) {
   return(
     <div className="list">
     <ul style={{overflow:'hidden'}}>
@@ -97,7 +97,7 @@ function TaskList( {items} ) {
           <span style={!item.packed? null: { textDecoration: 'line-through'}}>
           {item.quantity} {item.description}
           </span>
-          <button>❌</button>
+          <button onClick={() => handleDelete(item.id)}>❌</button>
           </li>
       ))} 
     </ul>
@@ -106,6 +106,9 @@ function TaskList( {items} ) {
   )
 };
 
+
+
+//Stats component
 
 function Stats() {
   return(
