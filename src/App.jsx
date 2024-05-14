@@ -61,7 +61,7 @@ function Form( {handleAddItems} ) {
   }
 
   const today = new Date();
-  const date = today.toISOString().slice(0, 10);
+  const date = today.toLocaleDateString().slice(0, 10);
 
   return (
   
@@ -94,6 +94,7 @@ function TaskList( {items, handleDelete} ) {
     <ul style={{overflow:'hidden'}}>
       {items.map((item)=>(
         <li key={item.description}>
+          <input type='checkbox' />
           <span style={!item.packed? null: { textDecoration: 'line-through'}}>
           {item.quantity} {item.description}
           </span>
