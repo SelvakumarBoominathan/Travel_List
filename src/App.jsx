@@ -3,23 +3,32 @@ import './App.css'
 
 function App() {
 
-  const [items, setItems] = useState([]);
+  const [tasks, settasks] = useState([]);
 
-  function handleAddItems(item){
-      setItems((items) => [...items, item])
+  function handleAddTasks(task){
+      settasks((tasks) => [...tasks, task])
   }
 
 
   //Delete from LIST
   function handleDelete(id){
-    setItems( items => items.filter(item =>item.id !== id))
+    settasks( tasks => tasks.filter(task =>task.id !== id))
+  }
+
+
+  function handleToggleTask(id){
+      settasks((tasks) => {
+        tasks.map((task)=>{
+          task.id === id? {...task, packed: !task.packed} : task;
+        })
+      })
   }
 
   return (
     <div className='app'>
     <Logo/>
-    <Form  handleAddItems = {handleAddItems}/>
-    <TaskList  items={items}  handleDelete={handleDelete}/>
+    <Form  handleAddTasks = {handleAddTasks}/>
+    <TaskList  tasks={tasks}  handleDelete={handleDelete}  handleToggleTask={handleToggleTask}/>
     <Stats/>
       
     </div>
@@ -40,7 +49,7 @@ function Logo() {
 
 //FORM component
 
-function Form( {handleAddItems} ) {
+function Form( {handleAddTasks} ) {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
 
@@ -51,10 +60,10 @@ function Form( {handleAddItems} ) {
 
     // if(!description){return}
 
-    const newItem = {description, quantity, packed : false, id : Date.now()}
-    console.log(newItem);
+    const newtask = {description, quantity, packed : false, id : Date.now()}
+    console.log(newtask);
 
-    handleAddItems(newItem)
+    handleAddTasks(newtask)
 
     setDescription("");
     setQuantity(1);
@@ -88,17 +97,17 @@ function Form( {handleAddItems} ) {
 
 //TaskList component
 
-function TaskList( {items, handleDelete} ) {
+function TaskList( {tasks, handleDelete, handleToggleTask} ) {
   return(
     <div className="list">
     <ul style={{overflow:'hidden'}}>
-      {items.map((item)=>(
-        <li key={item.description}>
-          <input type='checkbox' />
-          <span style={!item.packed? null: { textDecoration: 'line-through'}}>
-          {item.quantity} {item.description}
+      {tasks.map((task)=>(
+        <li key={task.description}>
+          <input type='checkbox' value={task.packed}  onChange={() => {handleToggleTask(task.id)}}/>
+          <span style={!task.packed? null: { textDecoration: 'line-through'}}>
+          {task.quantity} {task.description}
           </span>
-          <button onClick={() => handleDelete(item.id)}>❌</button>
+          <button onClick={() => handleDelete(task.id)}>❌</button>
           </li>
       ))} 
     </ul>
