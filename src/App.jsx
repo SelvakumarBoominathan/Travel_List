@@ -12,17 +12,22 @@ function App() {
 
   //Delete from LIST
   function handleDelete(id){
-    settasks( tasks => tasks.filter(task =>task.id !== id))
+    settasks( (tasks) => tasks.filter((task) =>task.id !==id))
   }
 
 
   function handleToggleTask(id){
-      settasks((tasks) => {
-        tasks.map((task)=>{
-          task.id === id? {...task, packed: !task.packed} : task;
-        })
-      })
+      settasks((tasks) => tasks.map((task) =>
+             task.id === id? {...task, packed: !task.packed} : task
+        )
+      )
   }
+
+  // function handleToggleTask(id) {
+  //   settasks((tasks) => tasks.map((task) => 
+  //     task.id === id ? { ...task, packed: !task.packed } : task
+  //   ));
+  // }
 
   return (
     <div className='app'>
@@ -30,7 +35,6 @@ function App() {
     <Form  handleAddTasks = {handleAddTasks}/>
     <TaskList  tasks={tasks}  handleDelete={handleDelete}  handleToggleTask={handleToggleTask}/>
     <Stats/>
-      
     </div>
   )
 }
@@ -102,7 +106,7 @@ function TaskList( {tasks, handleDelete, handleToggleTask} ) {
     <div className="list">
     <ul style={{overflow:'hidden'}}>
       {tasks.map((task)=>(
-        <li key={task.description}>
+        <li key={task.id}>
           <input type='checkbox' value={task.packed}  onChange={() => {handleToggleTask(task.id)}}/>
           <span style={!task.packed? null: { textDecoration: 'line-through'}}>
           {task.quantity} {task.description}
@@ -121,6 +125,7 @@ function TaskList( {tasks, handleDelete, handleToggleTask} ) {
 //Stats component
 
 function Stats() {
+
   return(
     <footer className='stats'>
      <em> 📝 you have <span>0</span> pending tasks on your list , and you have completed <span>0</span> (<span style={{color: "yellow"}}>0%</span>) in it. </em>
