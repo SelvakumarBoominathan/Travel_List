@@ -17,17 +17,11 @@ function App() {
 
 
   function handleToggleTask(id){
-      settasks((tasks) => tasks.map((task) =>
-             task.id === id? {...task, packed: !task.packed} : task
-        )
+      settasks((tasks) => tasks.map((task) => task.id === id? 
+      // Since, turnary operator used here the returning element along covered by paranthesis
+         {...task, packed: !task.packed} : task)
       )
   }
-
-  // function handleToggleTask(id) {
-  //   settasks((tasks) => tasks.map((task) => 
-  //     task.id === id ? { ...task, packed: !task.packed } : task
-  //   ));
-  // }
 
   return (
     <div className='app'>
